@@ -10,6 +10,11 @@ const service = {
         return {
           name: args.name
         };
+      },
+      addFunction: function(args) {
+        return {
+            result: args.a + args.b
+        }
       }
     }
   }
