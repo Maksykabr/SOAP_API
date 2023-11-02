@@ -1,29 +1,21 @@
 const soap = require('soap');
 
 const url = 'http://localhost:8000/wsdl?wsdl';
-const nameArg = { name: 'Maks' };
-const addArgs = {a:1, b:5};
+
+const args = { name: 'Maks' };
 
 soap.createClient(url, function(err, client) {
     if (err) {
         console.log(err);
     } else {
-        client.MyService.MyPort.MyFunction(nameArg, function(err, result) {
+        client.MyService.MyPort.MyFunction(args, function(err, result) {
+            console.log('first step')
             if (err) {
                 console.log(err);
             } else {
+                // console.log(args)
                 console.log(result);
             }
-        });
-
-        client.MyService.MyPort.addFunction(addArgs, function(err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result);
-            }
-        });
+        })
     }
-  
 });
-

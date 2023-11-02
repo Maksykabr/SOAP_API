@@ -5,21 +5,31 @@
   xmlns:tns="http://example.com/myservice.wsdl"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+  <types>
+    <schema targetNamespace="http://example.com/myservice.wsdl"
+      xmlns="http://www.w3.org/2001/XMLSchema"
+      xmlns:tns="http://example.com/myservice.wsdl"
+      elementFormDefault="qualified">
+
+      <complexType name="ArrayOfStrings">
+        <sequence>
+          <element name="Перший_рівень" type="xsd:string" />
+          <element name="Другий_рівень" type="xsd:string" />
+          <element name="Третій_рівень" type="xsd:string" />
+          <element name="Четвертий_рівень" type="xsd:string" />
+          <element name="Категорія" type="xsd:string" />
+          <element name="Назва_обєкта_українською_мовою" type="xsd:string" />
+        </sequence>
+      </complexType>
+    </schema>
+  </types>
+
   <message name="MyFunctionRequest">
     <part name="name" type="xsd:string" />
   </message>
 
   <message name="MyFunctionResponse">
-    <part name="name" type="xsd:string" />
-  </message>
-
-  <message name="addFunctionRequest">
-    <part name="a" type="xsd:int" />
-    <part name="b" type="xsd:int" />
-  </message>
-
-  <message name="addFunctionResponse">
-    <part name="result" type="xsd:int" /> <!-- Adjusted the type to xsd:int -->
+    <part name="response" type="tns:ArrayOfStrings" />
   </message>
 
   <portType name="MyPortType">
@@ -27,30 +37,17 @@
       <input message="tns:MyFunctionRequest" />
       <output message="tns:MyFunctionResponse" />
     </operation>
-    <operation name="addFunction">
-      <input message="tns:addFunctionRequest" />
-      <output message="tns:addFunctionResponse" />
-    </operation>
   </portType>
 
   <binding name="MyBinding" type="tns:MyPortType">
-    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
     <operation name="MyFunction">
-      <soap:operation soapAction="MyFunction" />
+      <soap:operation soapAction="http://example.com/myservice.wsdl#MyFunction" />
       <input>
-        <soap:body use="encoded" namespace="http://example.com/myservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="literal" />
       </input>
       <output>
-        <soap:body use="encoded" namespace="http://example.com/myservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </output>
-    </operation>
-    <operation name="addFunction">
-      <soap:operation soapAction="addFunction" />
-      <input>
-        <soap:body use="encoded" namespace="http://example.com/myservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </input>
-      <output>
-        <soap:body use="encoded" namespace="http://example.com/myservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="literal" />
       </output>
     </operation>
   </binding>
