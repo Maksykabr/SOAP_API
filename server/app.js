@@ -4,7 +4,7 @@ const soap = require('soap');
 const axios = require('axios');
 const { create } = require('xmlbuilder2');
 
-const url = 'http://18.212.77.86:3000/get_firstLevel/0350000011';
+// const url = 'http://18.212.77.86:3000/get_firstLevel/0350000011';
 
 const app = express();
 
@@ -12,7 +12,9 @@ const service = {
     MyService: {
       MyPort: {
         MyFunction: function(args, callback) {
-            // console.log(args);
+            console.log(args);
+            url = `http://18.212.77.86:3000/get_firstLevel/${args.name}`
+            console.log(url);
             axios.get(url)
               .then(response => {
                 console.log('Response Data:', response.data);
