@@ -13,7 +13,7 @@ const service = {
       MyPort: {
         MyFunction: function(args, callback) {
             console.log(args);
-            url = `http://18.212.77.86:3000/get_firstLevel/${args.name}`
+            url = `http://18.212.77.86:3000/get_firstLevel/${args.firstLevel}`
             console.log(url);
             axios.get(url)
               .then(response => {
